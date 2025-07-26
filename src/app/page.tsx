@@ -1,7 +1,9 @@
 "use client"
 
+import FoxAnimation from "@/components/FoxAnimation.tsx"
 import ShortLink from "@/components/Shortlink"
-import { signOut, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
+import Image from "next/image"
 
 const links = [
   {
@@ -36,6 +38,22 @@ const links = [
     description: "Join the SLIIT Mozilla Club",
     views: 0,
   },
+  {
+    name: "join",
+    redirect: "https://links.sliitmozilla.org/join",
+    pinned: false,
+    createdBy: "Seniru",
+    description: "Join the SLIIT Mozilla Club",
+    views: 0,
+  },
+  {
+    name: "join",
+    redirect: "https://links.sliitmozilla.org/join",
+    pinned: false,
+    createdBy: "Seniru",
+    description: "Join the SLIIT Mozilla Club",
+    views: 0,
+  },
 ]
 
 export default function Home() {
@@ -45,11 +63,62 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-100">
-      <header>
-        <h3>Mozilla Campus Club of SLIIT</h3>
-        <button onClick={() => signOut()}>Log out</button>
+      <FoxAnimation />
+      <header className="sticky top-0 z-2 bg-white shadow-md p-3 py-5 mb-8">
+        <div className="flex justify-between items-center">
+          <img
+            src="/assets/Mozilla-logo.png"
+            alt="Mozilla Campus Club of SLIIT"
+            width={100}
+            height={50}
+            className="mx-7"
+          />
+          {loggedIn ? (
+            <div className="flex gap-5 items-center mx-7">
+              <div className="flex gap-1 items-center">
+                {user.image && (
+                  <Image
+                    src={user.image}
+                    alt="Profile image"
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                )}
+
+                <span className="text-gray-500 text-sm">Logged in as</span>
+                <span className="text-sm">{user.name}</span>
+              </div>
+              <div>
+                <button
+                  className="border border-transparent bg-black text-white hover:bg-white hover:text-black hover:border-black transition px-3 py-2 rounded-lg cursor-pointer font-bold text-sm"
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-2 items-center mx-7">
+              <button
+                className="border border-transparent bg-black text-white hover:bg-white hover:text-black hover:border-black transition px-3 py-2 rounded-lg cursor-pointer font-bold text-sm"
+                onClick={() => {
+                  window.open("https://links.sliitmozilla.org/join", "_blank")
+                }}
+              >
+                Join SLIIT Mozilla!
+              </button>
+              <button
+                className="border border-transparent bg-black text-white hover:bg-white hover:text-black hover:border-black transition px-3 py-2 rounded-lg cursor-pointer font-bold text-sm"
+                onClick={() => signIn("github")}
+              >
+                Login
+              </button>
+            </div>
+          )}
+        </div>
       </header>
-      <section className="grid justify-center">
+      <section className="relative grid justify-start">
         {links.map((link, index) => (
           <ShortLink
             key={index}

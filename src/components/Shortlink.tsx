@@ -32,7 +32,7 @@ export default function ShortLink({
   loggedIn,
 }: Props) {
   return (
-    <div className="bg-white p-6 m-1 rounded-xl shadow-md min-w-200">
+    <div className="bg-white opacity-90 p-6 m-1 mx-10 rounded-xl shadow-md min-w-200">
       <div className="flex gap-2 items-center justify-between">
         <div className="flex gap-2 items-center">
           <h4 className="font-bold text-lg">{name}</h4>
