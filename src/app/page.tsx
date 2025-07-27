@@ -15,62 +15,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-
-const links = [
-  {
-    name: "github",
-    redirect: "http://github.com",
-    pinned: true,
-    createdBy: "Seniru",
-    description: "Official GitHub repository for SLIIT Mozilla Club",
-    views: 0,
-  },
-  {
-    name: "discord",
-    redirect: "https://discord.gg/sliitmozilla",
-    pinned: true,
-    createdBy: "Seniru",
-    description: "Join our Discord server for discussions and events",
-    views: 0,
-  },
-  {
-    name: "website",
-    redirect: "https://sliitmozilla.org",
-    pinned: true,
-    createdBy: "Seniru",
-    description: "Official website of SLIIT Mozilla Club",
-    views: 0,
-  },
-  {
-    name: "join",
-    redirect: "https://links.sliitmozilla.org/join",
-    pinned: false,
-    createdBy: "Seniru",
-    description: "Join the SLIIT Mozilla Club",
-    views: 0,
-  },
-  {
-    name: "join",
-    redirect: "https://links.sliitmozilla.org/join",
-    pinned: false,
-    createdBy: "Seniru",
-    description: "Join the SLIIT Mozilla Club",
-    views: 0,
-  },
-  {
-    name: "join",
-    redirect: "https://links.sliitmozilla.org/join",
-    pinned: false,
-    createdBy: "Seniru",
-    description: "Join the SLIIT Mozilla Club",
-    views: 0,
-  },
-]
+import { createLink, getLinks } from "./actions"
+import { useEffect, useState } from "react"
+import Shortlink from "../../db/Link"
 
 export default function Home() {
   const { data } = useSession()
   const user = data?.user
   const loggedIn = !!user
+  const [links, setLinks] = useState<Shortlink[]>([])
+  const [refreshFlag, setRefreshFlag] = useState<boolean>(false)
+
+  useEffect(() => {
+    const fetchLinks = async () => {
+      setLinks(await getLinks())
+    }
+    fetchLinks()
+  }, [refreshFlag])
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -99,7 +60,7 @@ export default function Home() {
                 )}
 
                 <span className="text-gray-500 text-sm">Logged in as</span>
-                <span className="text-sm">{user.name}</span>
+                <span className="text-sm">{user.username}</span>
               </div>
               <div>
                 <button
@@ -131,7 +92,10 @@ export default function Home() {
         </div>
       </header>
       {loggedIn && (
-        <form className="relative z-1 m-10 w-200 bg-white p-6 rounded-xl shadow-md space-y-4 opacity-90">
+        <form
+          action={(formData: FormData) => createLink(data, formData)}
+          className="relative z-1 m-10 w-200 bg-white p-6 rounded-xl shadow-md space-y-4 opacity-90"
+        >
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Link name
@@ -141,6 +105,7 @@ export default function Home() {
               name="name"
               id="name"
               className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
             />
           </div>
 
@@ -153,6 +118,7 @@ export default function Home() {
               name="redirect"
               id="redirect"
               className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
             />
           </div>
 
@@ -189,6 +155,8 @@ export default function Home() {
             views={link.views}
             user={user}
             loggedIn={loggedIn}
+            refreshFlag={refreshFlag}
+            setRefreshFlag={setRefreshFlag}
           />
         ))}
       </section>

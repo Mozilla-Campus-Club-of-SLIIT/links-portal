@@ -1,6 +1,8 @@
+import { deleteLink } from "@/app/actions"
 import { faEye, faLink, faPen, faThumbTack, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
+import { Dispatch, SetStateAction } from "react"
 
 type user =
   | {
@@ -19,6 +21,8 @@ interface Props {
   views: number
   user: user
   loggedIn: boolean
+  refreshFlag: boolean
+  setRefreshFlag: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ShortLink({
@@ -30,7 +34,14 @@ export default function ShortLink({
   views,
   user,
   loggedIn,
+  setRefreshFlag,
+  refreshFlag,
 }: Props) {
+  const deleteSelf = async () => {
+    await deleteLink(name)
+    setRefreshFlag(!refreshFlag)
+  }
+
   return (
     <div className="bg-white opacity-90 p-6 m-1 mx-10 rounded-xl shadow-md min-w-200">
       <div className="flex gap-2 items-center justify-between">
@@ -79,6 +90,7 @@ export default function ShortLink({
               icon={faTrash}
               cursor="pointer"
               className="hover:text-red-600 transition"
+              onClick={deleteSelf}
             />
           </div>
         </div>

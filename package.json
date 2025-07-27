@@ -11,20 +11,23 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "next": "15.4.4",
-    "next-auth": "^4.24.11",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2"
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "dotenv": "^17.2.1",
+    "next": "15.4.4",
+    "next-auth": "^4.24.11",
+    "pg": "^8.16.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.15.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

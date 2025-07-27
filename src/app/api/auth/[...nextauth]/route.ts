@@ -14,6 +14,27 @@ const handler = NextAuth({
       clientSecret,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      // todo: allow sign in based on organization access
+      return true
+    },
+
+    async jwt({ token, profile }) {
+      if (profile) {
+        const githubProfile = profile as { login: string }
+        token.login = githubProfile.login
+      }
+      return token
+    },
+
+    async session({ session, token }) {
+      if (token?.login) {
+        session.user.username = token.login
+      }
+      return session
+    },
+  },
 })
 
 export { handler as GET, handler as POST }
