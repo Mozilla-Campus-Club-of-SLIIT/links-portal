@@ -8,3 +8,33 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Firefox-themed animations */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fox-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.1); }
+}
+
+@keyframes flame-flicker {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  25% { opacity: 0.9; transform: scale(1.05); }
+  50% { opacity: 1; transform: scale(1.1); }
+  75% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-fox-bounce {
+  animation: fox-bounce 3s ease-in-out infinite;
+}
+
+.animate-flame-flicker {
+  animation: flame-flicker 2s ease-in-out infinite;
+}
