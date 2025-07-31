@@ -25,7 +25,12 @@ class LinkHandler {
     return res.rows as Link[]
   }
 
-  async updateLink(): Promise<void> {}
+  async updateLink(name: string, redirect: string, description?: string): Promise<void> {
+    await this.client.query(
+      'UPDATE "Link" SET name = $1, redirect = $2, description = $3 WHERE name = $1',
+      [name, redirect, description],
+    )
+  }
 
   async deleteLink(name: string): Promise<void> {
     console.log(name)

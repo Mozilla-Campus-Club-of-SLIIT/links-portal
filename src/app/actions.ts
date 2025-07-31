@@ -29,7 +29,18 @@ export const getLinks = async (): Promise<Link[]> => {
   return links
 }
 
-export const updateLink = async (formData: FormData) => {}
+export const updateLink = async (formData: FormData) => {
+  const name = formData.get("name")?.toString()
+  const _redirect = formData.get("redirect")?.toString()
+  const description = formData.get("description")?.toString()
+
+  if (!name || !_redirect) throw new Error("name and redirect cannot be empty")
+
+  const dbConn = await connectDB()
+  const handler = new LinkHandler(dbConn)
+  await handler.updateLink(name, _redirect, description)
+  dbConn.release()
+}
 
 export const deleteLink = async (name: string) => {
   const dbConn = await connectDB()
