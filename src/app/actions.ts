@@ -29,6 +29,13 @@ export const getLinks = async (): Promise<Link[]> => {
   return links
 }
 
+export const getLinkRedirect = async (name: string): Promise<string | null> => {
+  const dbConn = await connectDB()
+  const handler = new LinkHandler(dbConn)
+  const _redirect = await handler.getRedirect(name)
+  return _redirect
+}
+
 export const updateLink = async (formData: FormData) => {
   const name = formData.get("name")?.toString()
   const _redirect = formData.get("redirect")?.toString()

@@ -25,6 +25,16 @@ class LinkHandler {
     return res.rows as Link[]
   }
 
+  async getRedirect(name: string): Promise<string | null> {
+    const res = await this.client.query('SELECT redirect FROM "Link" WHERE name = $1', [name])
+    if (res.rowCount == 0) return null
+    const _redirect = res.rows[0].redirect
+    if (!_redirect) return null
+    // check for protocol to avoid infinite redirects
+    if (!/^\w+:\/\/.+/.test(_redirect)) return null
+    return _redirect
+  }
+
   async updateLink(name: string, redirect: string, description?: string): Promise<void> {
     await this.client.query(
       'UPDATE "Link" SET name = $1, redirect = $2, description = $3 WHERE name = $1',
