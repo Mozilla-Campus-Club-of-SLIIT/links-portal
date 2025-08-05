@@ -1,3 +1,4 @@
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faInstagram,
@@ -130,6 +131,7 @@ export default function Home() {
           </div>
         </div> */}
       </div>
+
     </main>
   )
 }
