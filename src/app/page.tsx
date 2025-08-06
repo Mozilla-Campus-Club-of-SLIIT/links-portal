@@ -10,6 +10,7 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons"
 import { faGlobe, faUserPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { FoxAnimations } from "./components/FoxAnimation"
 
 export default function Home() {
   const socialLinks = [
@@ -111,6 +112,9 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+                <FoxAnimations />
+
 
         {/* Footer */}
         <div className="mt-12 mb-8">
