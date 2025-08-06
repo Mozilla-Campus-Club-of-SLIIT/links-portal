@@ -8,3 +8,213 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Background Animation */
+.bg-gradient-animation {
+  background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+  position: relative;
+}
+
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 106, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+  opacity: 0.6;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Circle sizes and positions with responsive adjustments */
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  right: -50px;
+  animation: float-circle-1 15s infinite;
+}
+
+.circle-2 {
+  width: 250px;
+  height: 250px;
+  top: -80px;
+  left: -50px;
+  background: linear-gradient(135deg, rgba(0, 106, 255, 0.1) 0%, rgba(0, 91, 218, 0.05) 100%);
+  animation: float-circle-2 18s infinite;
+}
+
+.circle-3 {
+  width: 180px;
+  height: 180px;
+  top: 30%;
+  right: 10%;
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(255, 153, 0, 0.05) 100%);
+  animation: float-circle-3 12s infinite;
+}
+
+.circle-4 {
+  width: 220px;
+  height: 220px;
+  bottom: 20%;
+  left: 5%;
+  background: linear-gradient(135deg, rgba(196, 0, 255, 0.1) 0%, rgba(160, 0, 213, 0.05) 100%);
+  animation: float-circle-4 20s infinite;
+}
+
+/* Media query for tablets and up */
+@media (min-width: 640px) {
+  .circle-1 {
+    width: 400px;
+    height: 400px;
+    bottom: -150px;
+    right: -80px;
+  }
+  
+  .circle-2 {
+    width: 350px;
+    height: 350px;
+    top: -100px;
+    left: -70px;
+  }
+  
+  .circle-3 {
+    width: 250px;
+    height: 250px;
+    right: 15%;
+  }
+  
+  .circle-4 {
+    width: 300px;
+    height: 300px;
+    left: 8%;
+  }
+}
+
+/* Media query for desktop */
+@media (min-width: 1024px) {
+  .circle-1 {
+    width: 600px;
+    height: 600px;
+    bottom: -200px;
+    right: -100px;
+  }
+  
+  .circle-2 {
+    width: 500px;
+    height: 500px;
+    top: -150px;
+    left: -100px;
+  }
+  
+  .circle-3 {
+    width: 300px;
+    height: 300px;
+    right: 20%;
+  }
+  
+  .circle-4 {
+    width: 400px;
+    height: 400px;
+    left: 10%;
+  }
+}
+
+@keyframes float-circle-1 {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-30px) scale(1.05);
+  }
+}
+
+@keyframes float-circle-2 {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(30px) scale(1.03);
+  }
+}
+
+@keyframes float-circle-3 {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    transform: translateX(20px) scale(1.05);
+  }
+}
+
+@keyframes float-circle-4 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  100% {
+    transform: translateX(-15px) translateY(15px) scale(1.04);
+  }
+}
+
+/* Social links hover effect */
+@keyframes pulse-shadow {
+  0% {
+    transform: translateX(2px) translateY(2px);
+  }
+  100% {
+    transform: translateX(4px) translateY(4px);
+  }
+}
+
+.group:hover .absolute {
+  animation: pulse-shadow 0.5s ease-in-out infinite alternate;
+}
+
+/* Enhanced animation on larger screens */
+@media (min-width: 1024px) {
+  @keyframes float-circle-1 {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      transform: translateY(-50px) scale(1.1);
+    }
+  }
+  
+  @keyframes float-circle-2 {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      transform: translateY(50px) scale(1.05);
+    }
+  }
+  
+  @keyframes float-circle-3 {
+    0% {
+      transform: translateX(0) scale(1);
+    }
+    100% {
+      transform: translateX(30px) scale(1.1);
+    }
+  }
+  
+  @keyframes float-circle-4 {
+    0% {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+    100% {
+      transform: translateX(-20px) translateY(20px) scale(1.08);
+    }
+  }
+}
