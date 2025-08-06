@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faInstagram,
@@ -105,7 +104,10 @@ export default function Home() {
                 <div className="relative bg-white border-2 border-black rounded-2xl p-3 sm:p-4 hover:transform hover:-translate-x-1 hover:-translate-y-1 transition-all duration-200 ease-out">
                   <div className="flex items-center justify-between">
                     <span className="text-black font-medium text-sm sm:text-lg">{link.name}</span>
-                    <FontAwesomeIcon icon={link.icon} className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+                    <FontAwesomeIcon
+                      icon={link.icon}
+                      className="w-5 h-5 sm:w-6 sm:h-6 text-black"
+                    />
                   </div>
                 </div>
               </a>
@@ -113,8 +115,7 @@ export default function Home() {
           </div>
         </div>
 
-                <FoxAnimations />
-
+        <FoxAnimations />
 
         {/* Footer */}
         <div className="mt-12 mb-8">
@@ -135,7 +136,6 @@ export default function Home() {
           </div>
         </div> */}
       </div>
-
     </main>
   )
 }
