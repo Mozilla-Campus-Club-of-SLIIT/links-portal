@@ -7,6 +7,9 @@ import {
   faYoutube,
   faMedium,
   faTwitter,
+  faTiktok,
+  faDiscord,
+  faThreads,
 } from "@fortawesome/free-brands-svg-icons"
 import { faGlobe, faUserPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { FoxAnimations } from "./components/FoxAnimation"
@@ -47,6 +50,21 @@ export default function Home() {
       name: "Twitter",
       icon: faTwitter,
       url: "https://x.com/mozillasliit",
+    },
+    {
+      name: "Threads",
+      icon: faThreads,
+      url: "https://www.threads.com/@sliitmozilla",
+    },
+    {
+      name: "Discord",
+      icon: faDiscord,
+      url: "https://discord.gg/EqEUDnmkDZ",
+    },
+    {
+      name: "Tiktok",
+      icon: faTiktok,
+      url: "https://www.tiktok.com/@sliitmozilla",
     },
     {
       name: "Website",
