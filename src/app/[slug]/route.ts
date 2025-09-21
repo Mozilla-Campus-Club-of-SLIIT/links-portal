@@ -11,7 +11,7 @@ const redirects = {
   medium: "https://medium.com/@infosliitmcc",
   twitter: "https://x.com/mozillasliit",
   tiktok:"https://www.tiktok.com/@sliitmozilla",
-  discoed:"https://discord.gg/EqEUDnmkDZ",
+  discord:"https://discord.gg/EqEUDnmkDZ",
   threads:"https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
   join: "https://forms.gle/1eNYuiNqd7CwbGEw6"
