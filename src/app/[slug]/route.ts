@@ -10,6 +10,9 @@ const redirects = {
   youtube: "https://youtube.com/@sliitmozilla",
   medium: "https://medium.com/@infosliitmcc",
   twitter: "https://x.com/mozillasliit",
+  tiktok:"https://www.tiktok.com/@sliitmozilla",
+  discoed:"https://discord.gg/EqEUDnmkDZ",
+  threads:"https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
   join: "https://forms.gle/1eNYuiNqd7CwbGEw6"
 } as Record<string, string>
