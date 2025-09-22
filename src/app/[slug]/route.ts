@@ -10,11 +10,11 @@ const redirects = {
   youtube: "https://youtube.com/@sliitmozilla",
   medium: "https://medium.com/@infosliitmcc",
   twitter: "https://x.com/mozillasliit",
-  tiktok:"https://www.tiktok.com/@sliitmozilla",
-  discord:"https://discord.gg/EqEUDnmkDZ",
-  threads:"https://www.threads.com/@sliitmozilla",
+  tiktok: "https://www.tiktok.com/@sliitmozilla",
+  discord: "https://discord.gg/EqEUDnmkDZ",
+  threads: "https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
-  join: "https://forms.gle/1eNYuiNqd7CwbGEw6"
+  join: "https://forms.gle/1eNYuiNqd7CwbGEw6",
 } as Record<string, string>
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
