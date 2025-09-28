@@ -80,20 +80,20 @@ body {
     bottom: -150px;
     right: -80px;
   }
-  
+
   .circle-2 {
     width: 350px;
     height: 350px;
     top: -100px;
     left: -70px;
   }
-  
+
   .circle-3 {
     width: 250px;
     height: 250px;
     right: 15%;
   }
-  
+
   .circle-4 {
     width: 300px;
     height: 300px;
@@ -109,20 +109,20 @@ body {
     bottom: -200px;
     right: -100px;
   }
-  
+
   .circle-2 {
     width: 500px;
     height: 500px;
     top: -150px;
     left: -100px;
   }
-  
+
   .circle-3 {
     width: 300px;
     height: 300px;
     right: 20%;
   }
-  
+
   .circle-4 {
     width: 400px;
     height: 400px;
@@ -190,7 +190,7 @@ body {
       transform: translateY(-50px) scale(1.1);
     }
   }
-  
+
   @keyframes float-circle-2 {
     0% {
       transform: translateY(0) scale(1);
@@ -199,7 +199,7 @@ body {
       transform: translateY(50px) scale(1.05);
     }
   }
-  
+
   @keyframes float-circle-3 {
     0% {
       transform: translateX(0) scale(1);
@@ -208,7 +208,7 @@ body {
       transform: translateX(30px) scale(1.1);
     }
   }
-  
+
   @keyframes float-circle-4 {
     0% {
       transform: translateX(0) translateY(0) scale(1);
