@@ -15,6 +15,7 @@ const redirects = {
   threads: "https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
   join: "https://forms.gle/1eNYuiNqd7CwbGEw6",
+  ["holamozilla-2025"]: "https://forms.gle/arvimm6KUz6cAfbt9",
 } as Record<string, string>
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
