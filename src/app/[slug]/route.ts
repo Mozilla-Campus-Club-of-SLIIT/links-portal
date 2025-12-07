@@ -14,7 +14,7 @@ const redirects = {
   discord: "https://discord.gg/EqEUDnmkDZ",
   threads: "https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
-  join: "https://forms.gle/1eNYuiNqd7CwbGEw6",
+  join: "https://www.sliitmozilla.org/apply/",
   ["holamozilla-2025"]: "https://forms.gle/arvimm6KUz6cAfbt9",
 } as Record<string, string>
 

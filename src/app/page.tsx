@@ -79,7 +79,7 @@ export default function Home() {
     {
       name: "Join the Club",
       icon: faUserPlus,
-      url: "https://forms.gle/1eNYuiNqd7CwbGEw6",
+      url: "https://www.sliitmozilla.org/apply/",
     },
   ]
 
