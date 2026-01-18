@@ -8,7 +8,7 @@ const redirects = {
   linkedin: "https://linkedin.com/company/sliitmozilla",
   github: "https://github.com/Mozilla-Campus-Club-of-SLIIT",
   youtube: "https://youtube.com/@sliitmozilla",
-  medium: "https://medium.com/@infosliitmcc",
+  medium: "https://medium.com/@sliitmozilla",
   twitter: "https://x.com/mozillasliit",
   tiktok: "https://www.tiktok.com/@sliitmozilla",
   discord: "https://discord.gg/EqEUDnmkDZ",

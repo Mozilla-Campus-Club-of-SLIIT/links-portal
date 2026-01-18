@@ -44,7 +44,7 @@ export default function Home() {
     {
       name: "Medium",
       icon: faMedium,
-      url: "https://medium.com/@infosliitmcc",
+      url: "https://medium.com/@sliitmozilla",
     },
     {
       name: "Twitter",
