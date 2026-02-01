@@ -16,6 +16,8 @@ const redirects = {
   web: "https://www.sliitmozilla.org",
   join: "https://www.sliitmozilla.org/apply/",
   ["holamozilla-2025"]: "https://forms.gle/arvimm6KUz6cAfbt9",
+  contribute: "https://github.com/issues/assigned?q=org%3AMozilla-Campus-Club-of-SLIIT%20is%3Aissue%20is%3Aopen",
+  ["github-prs"]: "https://github.com/issues/assigned?q=org%3AMozilla-Campus-Club-of-SLIIT%20is%3Apr",
 } as Record<string, string>
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
