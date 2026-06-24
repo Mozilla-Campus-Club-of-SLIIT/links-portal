@@ -14,7 +14,7 @@ const redirects = {
   discord: "https://discord.gg/EqEUDnmkDZ",
   threads: "https://www.threads.com/@sliitmozilla",
   web: "https://www.sliitmozilla.org",
-  join: "https://www.sliitmozilla.org/apply/",
+  join: "https://docs.google.com/forms/d/e/1FAIpQLSeI1CkiUVyG6SVCUOYr-ZdTRms_9iAB_LKE2w0m6Wl7_JY3pg/viewform?usp=header",
   ["holamozilla-2025"]: "https://forms.gle/arvimm6KUz6cAfbt9",
   contribute: "https://github.com/issues/assigned?q=org%3AMozilla-Campus-Club-of-SLIIT%20is%3Aissue%20is%3Aopen",
   ["github-prs"]: "https://github.com/issues/assigned?q=org%3AMozilla-Campus-Club-of-SLIIT%20is%3Apr",
