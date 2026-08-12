@@ -11,7 +11,7 @@ import {
   faDiscord,
   faThreads,
 } from "@fortawesome/free-brands-svg-icons"
-import { faGlobe, faUserPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { faGlobe, faUserPlus, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FoxAnimations } from "./components/FoxAnimation"
 
 export default function Home() {
@@ -146,10 +146,17 @@ export default function Home() {
         <FoxAnimations />
 
         {/* Footer */}
-        <div className="mt-12 mb-8 relative z-10 p-3">
-          <p className="text-gray-600 text-xs sm:text-sm text-center">
+        <div className="mt-12 mb-8 relative z-10 p-3 flex flex-col items-center">
+          <p className="text-gray-600 text-xs sm:text-sm text-center mb-4">
             © 2025 Mozilla Campus Club of SLIIT. Made with ❤️ by SLIIT Mozillians
           </p>
+          <a
+            href="/admin/login"
+            className="text-gray-400 hover:text-orange-500 transition-colors duration-200"
+            title="Admin Login"
+          >
+            <FontAwesomeIcon icon={faLock} className="w-4 h-4" />
+          </a>
         </div>
 
         {/* Footer logo */}
