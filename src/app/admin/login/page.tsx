@@ -12,13 +12,9 @@ export default function AdminLogin() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
-    // TODO: This is where the team member will integrate the Supabase Edge Function
-    // Example: await fetch('/api/auth', { method: 'POST', body: JSON.stringify({ email, password }) })
-    
     setTimeout(() => {
       setIsLoading(false)
-      alert("Login integration pending (Issue #1)")
+      alert("Login integration pending")
     }, 1000)
   }
 
@@ -61,7 +57,7 @@ export default function AdminLogin() {
                 placeholder="you@sliitmozilla.org"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-semibold text-gray-800 mb-2">
                 Password
