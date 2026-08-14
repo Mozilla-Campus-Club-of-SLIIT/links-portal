@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Link from "next/link"
 import {
   faInstagram,
   faFacebook,
@@ -146,10 +147,13 @@ export default function Home() {
         <FoxAnimations />
 
         {/* Footer */}
-        <div className="mt-12 mb-8 relative z-10 p-3">
-          <p className="text-gray-600 text-xs sm:text-sm text-center">
+        <div className="mt-12 mb-8 relative z-10 p-3 flex flex-col items-center">
+          <p className="text-gray-600 text-xs sm:text-sm text-center mb-2">
             © 2025 Mozilla Campus Club of SLIIT. Made with ❤️ by SLIIT Mozillians
           </p>
+          <Link href="/admin/dashboard" className="text-gray-400 hover:text-orange-500 text-xs transition-colors duration-200">
+            Admin Access
+          </Link>
         </div>
 
         {/* Footer logo */}
