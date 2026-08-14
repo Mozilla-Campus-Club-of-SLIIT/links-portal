@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 /**
  * Scenes / states:
@@ -25,45 +25,8 @@ const scenes = [
   { type: "none", duration: 3000 },
 ]
 
-const FOX_CSS = `
-  @keyframes fox-run-rtl {
-    0% { transform: translateX(110vw) translateY(-50%); }
-    100% { transform: translateX(-150px) translateY(-50%); }
-  }
-  @keyframes fox-run-ltr {
-    0% { transform: translateX(-150px) translateY(-50%); }
-    100% { transform: translateX(110vw) translateY(-50%); }
-  }
-  @keyframes fox-jump-fade {
-    0%, 100% { opacity: 0; }
-    10%, 90% { opacity: 1; }
-  }
-  .fox-run-rtl { bottom: 0; animation: fox-run-rtl 10s linear forwards; }
-  .fox-run-ltr { bottom: 0; animation: fox-run-ltr 10s linear forwards; }
-  .fox-flip { transform: scaleX(-1); }
-  .fox-jump-left { position: fixed; left: 2rem; bottom: 0; animation: fox-jump-fade 8s ease-in-out forwards; }
-  .fox-jump-right { position: fixed; right: 2rem; bottom: 0; animation: fox-jump-fade 8s ease-in-out forwards; }
-  .fox-run-rtl img, .fox-run-ltr img { width: 200px; height: auto; }
-  .fox-jump-left img, .fox-jump-right img { width: 250px; height: auto; }
-`
-
 export function FoxAnimations() {
   const [sceneIndex, setSceneIndex] = useState(0)
-  const styleRef = useRef<HTMLStyleElement | null>(null)
-
-  useEffect(() => {
-    // Inject fox CSS once into document head
-    if (!styleRef.current) {
-      const el = document.createElement("style")
-      el.textContent = FOX_CSS
-      document.head.appendChild(el)
-      styleRef.current = el
-    }
-    return () => {
-      styleRef.current?.remove()
-      styleRef.current = null
-    }
-  }, [])
 
   useEffect(() => {
     let isCancelled = false
@@ -115,15 +78,90 @@ export function FoxAnimations() {
   }
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        zIndex: 999999,
-        pointerEvents: "none",
-      }}
-      className={containerClass}
-    >
-      <img src={src} alt="Animated Fox" className={flip ? "fox-flip" : ""} />
-    </div>
+    <>
+      <div
+        style={{
+          position: "fixed",
+          zIndex: 999999,
+          pointerEvents: "none",
+        }}
+        className={containerClass}
+      >
+        <img src={src} alt="Animated Fox" className={flip ? "fox-flip" : ""} />
+      </div>
+
+      <style jsx global>{`
+        /* Keyframes */
+        @keyframes fox-run-rtl {
+          0% {
+            transform: translateX(110vw) translateY(-50%);
+          }
+          100% {
+            transform: translateX(-150px) translateY(-50%);
+          }
+        }
+
+        @keyframes fox-run-ltr {
+          0% {
+            transform: translateX(-150px) translateY(-50%);
+          }
+          100% {
+            transform: translateX(110vw) translateY(-50%);
+          }
+        }
+
+        @keyframes fox-jump-fade {
+          0%,
+          100% {
+            opacity: 0;
+          }
+          10%,
+          90% {
+            opacity: 1;
+          }
+        }
+
+        .fox-run-rtl {
+          bottom: 0;
+          animation: fox-run-rtl 10s linear forwards;
+        }
+
+        .fox-run-ltr {
+          bottom: 0;
+          animation: fox-run-ltr 10s linear forwards;
+        }
+
+        .fox-flip {
+          transform: scaleX(-1);
+        }
+
+        .fox-jump-left {
+          position: fixed;
+          left: 2rem;
+          bottom: 0;
+          animation: fox-jump-fade 8s ease-in-out forwards;
+        }
+
+        .fox-jump-right {
+          position: fixed;
+          right: 2rem;
+          bottom: 0;
+          animation: fox-jump-fade 8s ease-in-out forwards;
+        }
+
+        /* Larger sizes */
+        .fox-run-rtl img,
+        .fox-run-ltr img {
+          width: 200px; /* Running fox at 200px wide */
+          height: auto;
+        }
+
+        .fox-jump-left img,
+        .fox-jump-right img {
+          width: 250px; /* Jumping fox at 250px wide */
+          height: auto;
+        }
+      `}</style>
+    </>
   )
 }
