@@ -1,5 +1,5 @@
 import React from "react"
-import GenerateLinkForm from "../components/GenerateLinkForm"
+import GenerateLinkForm from "@/app/components/GenerateLinkForm"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {

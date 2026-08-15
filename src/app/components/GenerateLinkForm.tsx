@@ -2,12 +2,11 @@
 
 import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLink, faWandMagicSparkles, faClock, faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons"
+import { faLink, faWandMagicSparkles, faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons"
 
 export default function GenerateLinkForm() {
   const [originalUrl, setOriginalUrl] = useState("")
   const [shortCode, setShortCode] = useState("")
-  const [expiresAt, setExpiresAt] = useState("")
   const [isActive, setIsActive] = useState(true)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,7 +14,6 @@ export default function GenerateLinkForm() {
     const payload = {
       original_url: originalUrl,
       short_code: shortCode || undefined,
-      expires_at: expiresAt || undefined,
       is_active: isActive,
     }
     console.log("Form Submitted:", payload)
@@ -76,25 +74,6 @@ export default function GenerateLinkForm() {
             />
           </div>
           <p className="text-xs text-gray-500 pl-1">Leave blank to automatically generate a random short code.</p>
-        </div>
-
-        {/* Expiration Date */}
-        <div className="space-y-2">
-          <label htmlFor="expires_at" className="block text-sm font-semibold text-gray-700">
-            Expiration Date & Time <span className="text-gray-400 font-normal">(Optional)</span>
-          </label>
-          <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
-              <FontAwesomeIcon icon={faClock} />
-            </div>
-            <input
-              type="datetime-local"
-              id="expires_at"
-              value={expiresAt}
-              onChange={(e) => setExpiresAt(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all text-gray-800 placeholder-gray-400 hover:bg-white/80"
-            />
-          </div>
         </div>
 
         {/* Is Active Toggle */}
