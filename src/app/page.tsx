@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Link from "next/link"
 import {
   faInstagram,
   faFacebook,
