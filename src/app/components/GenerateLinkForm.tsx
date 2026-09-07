@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLink, faWandMagicSparkles, faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons"
+import { faLink, faCheck, faGlobe } from "@fortawesome/free-solid-svg-icons"
 
 export default function GenerateLinkForm() {
   const [originalUrl, setOriginalUrl] = useState("")
@@ -20,27 +20,25 @@ export default function GenerateLinkForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto backdrop-blur-xl bg-white/70 border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-3xl p-6 sm:p-10 transition-all hover:shadow-[0_8px_40px_0_rgba(255,106,0,0.15)] relative overflow-hidden group/form">
+    <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto relative group/form mb-10">
       
-      {/* Decorative gradient orb inside the form */}
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-orange-400/10 rounded-full blur-2xl pointer-events-none group-hover/form:bg-orange-400/20 transition-colors duration-700"></div>
+      {/* Orange shadow for the whole form */}
+      <div className="absolute inset-0 bg-orange-500 rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none"></div>
 
-      <div className="mb-8 text-center relative z-10">
-        <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-lg shadow-orange-500/30 transform transition-transform hover:scale-105 hover:rotate-3 cursor-default">
-          <FontAwesomeIcon icon={faWandMagicSparkles} className="text-white text-2xl" />
+      <div className="relative bg-white border-2 border-black rounded-3xl p-6 sm:p-10 transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-extrabold text-black tracking-tight">Create Short Link</h2>
+          <p className="text-gray-600 mt-2 text-sm sm:text-base font-medium">Enter the destination URL to generate a shortened link.</p>
         </div>
-        <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Create Short Link</h2>
-        <p className="text-gray-500 mt-2 text-sm sm:text-base">Turn a long, unwieldy URL into a short, manageable link.</p>
-      </div>
 
       <div className="space-y-6 relative z-10">
         {/* Original URL */}
         <div className="space-y-2">
-          <label htmlFor="original_url" className="block text-sm font-semibold text-gray-700">
+          <label htmlFor="original_url" className="block text-sm font-bold text-black">
             Destination URL <span className="text-orange-500">*</span>
           </label>
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-black transition-colors">
               <FontAwesomeIcon icon={faGlobe} />
             </div>
             <input
@@ -49,7 +47,7 @@ export default function GenerateLinkForm() {
               required
               value={originalUrl}
               onChange={(e) => setOriginalUrl(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all text-gray-800 placeholder-gray-400 hover:bg-white/80"
+              className="w-full pl-11 pr-4 py-3 bg-white border-2 border-black rounded-xl outline-none focus:ring-0 focus:shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] transition-shadow text-black placeholder-gray-400 font-medium"
               placeholder="https://example.com/very/long/path..."
             />
           </div>
@@ -57,11 +55,11 @@ export default function GenerateLinkForm() {
 
         {/* Short Code (Optional) */}
         <div className="space-y-2">
-          <label htmlFor="short_code" className="block text-sm font-semibold text-gray-700">
-            Custom Short Code <span className="text-gray-400 font-normal">(Optional)</span>
+          <label htmlFor="short_code" className="block text-sm font-bold text-black">
+            Custom Short Code <span className="text-gray-500 font-medium">(Optional)</span>
           </label>
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-black transition-colors">
               <FontAwesomeIcon icon={faLink} />
             </div>
             <input
@@ -69,7 +67,7 @@ export default function GenerateLinkForm() {
               id="short_code"
               value={shortCode}
               onChange={(e) => setShortCode(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-white/50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all text-gray-800 placeholder-gray-400 hover:bg-white/80"
+              className="w-full pl-11 pr-4 py-3 bg-white border-2 border-black rounded-xl outline-none focus:ring-0 focus:shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] transition-shadow text-black placeholder-gray-400 font-medium"
               placeholder="e.g. event2025"
             />
           </div>
@@ -77,12 +75,12 @@ export default function GenerateLinkForm() {
         </div>
 
         {/* Is Active Toggle */}
-        <div className="flex items-center justify-between p-4 bg-white/40 border border-gray-100 rounded-xl hover:bg-white/80 transition-colors group">
+        <div className="flex items-center justify-between p-4 bg-white border-2 border-black rounded-xl hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow group">
           <div>
-            <label htmlFor="is_active" className="block text-sm font-semibold text-gray-800 cursor-pointer">
+            <label htmlFor="is_active" className="block text-sm font-bold text-black cursor-pointer">
               Active Status
             </label>
-            <p className="text-xs text-gray-500 mt-1">If disabled, the link will redirect to an error page.</p>
+            <p className="text-xs text-gray-600 font-medium mt-1">If disabled, the link will redirect to an error page.</p>
           </div>
           <button
             type="button"
@@ -109,23 +107,13 @@ export default function GenerateLinkForm() {
       <div className="mt-10 relative z-10">
         <button
           type="submit"
-          className="w-full relative overflow-hidden group/btn bg-gray-900 text-white font-bold rounded-xl py-4 px-4 shadow-[0_4px_14px_0_rgb(0,0,0,39%)] hover:shadow-[0_6px_20px_rgba(0,0,0,23%)] hover:bg-[rgba(25,25,25,1)] transition-all flex items-center justify-center"
+          className="w-full relative group/btn bg-white border-2 border-black text-black font-bold rounded-xl py-4 px-4 shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] active:shadow-none active:translate-y-1 active:translate-x-1 transition-all flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1"
         >
-          {/* Base Layer */}
-          <div className="flex items-center justify-center space-x-2 group-hover/btn:opacity-0 transition-opacity duration-300">
+          <div className="flex items-center justify-center space-x-2">
             <span>Generate Short Link</span>
-            <FontAwesomeIcon icon={faWandMagicSparkles} className="text-sm" />
-          </div>
-          
-          {/* Hover Layer with Gradient Background */}
-          <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-orange-500 to-pink-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 z-0 pointer-events-none"></div>
-          
-          {/* Hover Layer Content */}
-          <div className="absolute inset-0 flex items-center justify-center space-x-2 font-bold text-white opacity-0 group-hover/btn:opacity-100 transition-all duration-300 z-10 transform translate-y-2 group-hover/btn:translate-y-0 pointer-events-none">
-            <span>Generate Short Link</span>
-            <FontAwesomeIcon icon={faWandMagicSparkles} className="text-sm rotate-12" />
           </div>
         </button>
+      </div>
       </div>
 
     </form>
