@@ -58,9 +58,9 @@ export default function GenerateLinkForm() {
       await navigator.clipboard.writeText(createdLink.url)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
-    } catch {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+    } catch (error) {
+      console.error("Failed to copy short link:", error)
+      setCopied(false)
     }
   }
 
@@ -207,9 +207,9 @@ export default function GenerateLinkForm() {
 
             {/* Generated Short Link & Copy action */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider">
+              <span className="block text-xs font-bold text-gray-600 uppercase tracking-wider">
                 Your Short Link
-              </label>
+              </span>
               <div className="flex flex-col sm:flex-row gap-2">
                 <div className="flex-1 bg-gray-50 border-2 border-black rounded-xl px-4 py-3 font-mono text-sm sm:text-base font-bold text-black truncate select-all">
                   {createdLink.url}
