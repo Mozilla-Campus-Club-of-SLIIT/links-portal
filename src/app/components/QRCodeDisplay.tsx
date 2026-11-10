@@ -21,7 +21,7 @@ export default function QRCodeDisplay({
   size = 200,
   filename = "shortlink-qr",
   className = "",
-}: QRCodeDisplayProps) {
+}: Readonly<QRCodeDisplayProps>) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const handleDownload = () => {
@@ -35,7 +35,7 @@ export default function QRCodeDisplay({
     downloadLink.download = `${filename}.png`
     document.body.appendChild(downloadLink)
     downloadLink.click()
-    document.body.removeChild(downloadLink)
+    downloadLink.remove()
   }
 
   if (!value) return null
