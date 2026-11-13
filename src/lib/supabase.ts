@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js"
+import { createBrowserClient } from "@supabase/ssr"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -9,4 +9,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
   )
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+/**
+ * Browser Supabase client for client components.
+ * Uses @supabase/ssr so it reads the session cookies set by /api/auth/callback.
+ */
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
