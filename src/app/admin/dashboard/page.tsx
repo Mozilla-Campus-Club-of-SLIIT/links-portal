@@ -1,6 +1,6 @@
 import React from "react"
-import GenerateLinkForm from "@/app/components/GenerateLinkForm"
 import { Metadata } from "next"
+import DashboardContent from "@/app/components/DashboardContent"
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Links Portal",
@@ -26,9 +26,7 @@ export default function AdminDashboardPage() {
  
         </div>
 
-        <div className="flex flex-col items-center justify-center">
-          <GenerateLinkForm />
-        </div>
+        <DashboardContent />
       </div>
     </main>
   )

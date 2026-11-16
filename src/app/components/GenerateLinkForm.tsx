@@ -33,7 +33,11 @@ interface CreatedLinkData {
   isActive: boolean
 }
 
-export default function GenerateLinkForm() {
+interface GenerateLinkFormProps {
+  onLinkCreated?: () => void
+}
+
+export default function GenerateLinkForm({ onLinkCreated }: Readonly<GenerateLinkFormProps>) {
   const [originalUrl, setOriginalUrl] = useState("")
   const [shortCode, setShortCode] = useState("")
   const [isActive, setIsActive] = useState(true)
@@ -76,6 +80,7 @@ export default function GenerateLinkForm() {
           setOriginalUrl("")
           setShortCode("")
           setIsActive(true)
+          onLinkCreated?.()
           return
         }
 
