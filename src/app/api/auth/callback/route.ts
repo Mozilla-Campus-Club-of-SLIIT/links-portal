@@ -8,6 +8,19 @@ type AccountsUser = {
 }
 
 const ACCOUNTS_API_URL = process.env.ACCOUNTS_API_URL ?? "https://accounts.sliitmozilla.org"
+const DEFAULT_ALLOWED_ROLES = ["admin", "Codenight host"]
+
+function getAllowedRoles(): string[] {
+  const envRoles = process.env.ALLOWED_ROLES
+  if (!envRoles) return DEFAULT_ALLOWED_ROLES
+
+  const parsed = envRoles
+    .split(",")
+    .map((role) => role.trim())
+    .filter(Boolean)
+
+  return parsed.length > 0 ? parsed : DEFAULT_ALLOWED_ROLES
+}
 
 async function exchangeCodeForUser(code: string): Promise<AccountsUser | null> {
   try {
@@ -20,7 +33,6 @@ async function exchangeCodeForUser(code: string): Promise<AccountsUser | null> {
     const token: string | undefined = (await tokenRes.json())?.data?.token
     if (!token) return null
 
-    
     const userRes = await fetch(`${ACCOUNTS_API_URL}/api/users/me`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
@@ -46,7 +58,9 @@ export async function GET(request: NextRequest) {
   const user = await exchangeCodeForUser(code)
   if (!user?.email) return fail("exchange_failed")
 
-  if (!user.roles.includes("admin")) return fail("forbidden")
+  const allowedRoles = getAllowedRoles()
+  const isAuthorized = user.roles.some((role) => allowedRoles.includes(role))
+  if (!isAuthorized) return fail("forbidden")
 
   const admin = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
