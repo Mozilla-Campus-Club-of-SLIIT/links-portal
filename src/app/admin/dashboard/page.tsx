@@ -1,5 +1,6 @@
 import React from "react"
 import GenerateLinkForm from "@/app/components/GenerateLinkForm"
+import LinksTable from "@/app/admin/components/LinksTable"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -23,12 +24,12 @@ export default function AdminDashboardPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight mb-4 mt-8">
             Dashboard
           </h1>
- 
         </div>
 
-        <div className="flex flex-col items-center justify-center">
+        <div className="mb-12 flex flex-col items-center justify-center">
           <GenerateLinkForm />
         </div>
+        <LinksTable />
       </div>
     </main>
   )
