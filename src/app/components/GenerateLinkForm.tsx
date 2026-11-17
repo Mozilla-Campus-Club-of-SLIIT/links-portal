@@ -9,8 +9,22 @@ import {
   faCopy,
   faArrowUpRightFromSquare,
   faRotateRight,
+  faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons"
+import { supabase } from "@/lib/supabase"
 import QRCodeDisplay from "./QRCodeDisplay"
+
+const SLUG_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+const SLUG_LENGTH = 6
+const MAX_GENERATE_ATTEMPTS = 5
+const UNIQUE_VIOLATION = "23505"
+const CUSTOM_CODE_PATTERN = /^[A-Za-z0-9_-]+$/
+
+function generateShortCode(length = SLUG_LENGTH): string {
+  const bytes = new Uint8Array(length)
+  crypto.getRandomValues(bytes)
+  return Array.from(bytes, (b) => SLUG_ALPHABET[b % SLUG_ALPHABET.length]).join("")
+}
 
 interface CreatedLinkData {
   url: string
@@ -23,33 +37,65 @@ export default function GenerateLinkForm() {
   const [originalUrl, setOriginalUrl] = useState("")
   const [shortCode, setShortCode] = useState("")
   const [isActive, setIsActive] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [createdLink, setCreatedLink] = useState<CreatedLinkData | null>(null)
   const [copied, setCopied] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMessage(null)
 
-    const origin =
-      typeof window !== "undefined" && window.location.origin
-        ? window.location.origin
-        : "http://localhost:3000"
-
-    const code = shortCode.trim() || Math.random().toString(36).substring(2, 8)
-    const fullShortUrl = `${origin}/l/${code}`
-
-    const payload = {
-      original_url: originalUrl,
-      short_code: shortCode || undefined,
-      is_active: isActive,
+    const customCode = shortCode.trim()
+    if (customCode && !CUSTOM_CODE_PATTERN.test(customCode)) {
+      setErrorMessage("Custom short code may only contain letters, numbers, hyphens and underscores.")
+      return
     }
-    console.log("Form Submitted:", payload)
 
-    setCreatedLink({
-      url: fullShortUrl,
-      code,
-      originalUrl,
-      isActive,
-    })
+    const destination = originalUrl.trim()
+    setIsSubmitting(true)
+    try {
+      // Custom codes get a single attempt; generated codes retry on the rare collision.
+      const attempts = customCode ? 1 : MAX_GENERATE_ATTEMPTS
+      for (let i = 0; i < attempts; i++) {
+        const code = customCode || generateShortCode()
+        const { error } = await supabase.from("links").insert({
+          original_url: destination,
+          short_code: code,
+          is_active: isActive,
+        })
+
+        if (!error) {
+          setCreatedLink({
+            url: `${window.location.origin}/l/${code}`,
+            code,
+            originalUrl: destination,
+            isActive,
+          })
+          setCopied(false)
+          setOriginalUrl("")
+          setShortCode("")
+          setIsActive(true)
+          return
+        }
+
+        if (error.code !== UNIQUE_VIOLATION) {
+          setErrorMessage(error.message || "Failed to create link.")
+          return
+        }
+
+        if (customCode) {
+          setErrorMessage(`The short code "${customCode}" is already taken. Please choose another.`)
+          return
+        }
+      }
+
+      setErrorMessage("Could not generate a unique short code. Please try again.")
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Unexpected error creating link.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleCopy = async () => {
@@ -70,6 +116,7 @@ export default function GenerateLinkForm() {
     setIsActive(true)
     setCreatedLink(null)
     setCopied(false)
+    setErrorMessage(null)
   }
 
   return (
@@ -172,13 +219,26 @@ export default function GenerateLinkForm() {
             </div>
           </div>
 
+          {errorMessage && (
+            <div
+              role="alert"
+              className="mt-8 relative z-10 p-4 bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]"
+            >
+              <p className="text-sm font-bold text-red-600 flex items-start gap-2">
+                <FontAwesomeIcon icon={faTriangleExclamation} className="mt-0.5" />
+                <span>{errorMessage}</span>
+              </p>
+            </div>
+          )}
+
           <div className="mt-10 relative z-10">
             <button
               type="submit"
-              className="w-full relative group/btn bg-white border-2 border-black text-black font-bold rounded-xl py-4 px-4 shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] active:shadow-none active:translate-y-1 active:translate-x-1 transition-all flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1 cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full relative group/btn bg-white border-2 border-black text-black font-bold rounded-xl py-4 px-4 shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] active:shadow-none active:translate-y-1 active:translate-x-1 transition-all flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0"
             >
               <div className="flex items-center justify-center space-x-2">
-                <span>Generate Short Link</span>
+                <span>{isSubmitting ? "Generating..." : "Generate Short Link"}</span>
               </div>
             </button>
           </div>
@@ -187,7 +247,7 @@ export default function GenerateLinkForm() {
 
       {/* Success Alert & QR Code Display */}
       {createdLink && (
-        <div className="relative group/success">
+        <div className="relative group/success" role="status">
           {/* Black shadow accent */}
           <div className="absolute inset-0 bg-black rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none"></div>
 
