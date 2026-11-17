@@ -109,7 +109,10 @@ export default function LinksTable() {
                       </a>
                     </td>
                     <td className="whitespace-nowrap px-5 py-4">
-                      <code className="rounded-md border-2 border-black bg-white px-2 py-1 font-mono text-sm font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                      <code
+                        title={link.short_code}
+                        className="inline-block max-w-40 truncate align-bottom rounded-md border-2 border-black bg-white px-2 py-1 font-mono text-sm font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                      >
                         {link.short_code}
                       </code>
                     </td>
