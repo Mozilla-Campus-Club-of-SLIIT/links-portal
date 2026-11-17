@@ -1,5 +1,9 @@
 "use client"
 
+import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheck, faCopy } from "@fortawesome/free-solid-svg-icons"
+
 /**
  * Shape used by the links table and intended to align with the links API.
  * Keep nullable dates explicit so the UI can represent links without expiry.
@@ -44,6 +48,18 @@ function formatExpiration(expiresAt: string | null) {
 }
 
 export default function LinksTable() {
+  const [copiedCode, setCopiedCode] = useState<string | null>(null)
+
+  async function copyShortCode(shortCode: string) {
+    try {
+      await navigator.clipboard.writeText(shortCode)
+      setCopiedCode(shortCode)
+      window.setTimeout(() => setCopiedCode(null), 2000)
+    } catch (error) {
+      console.error("Failed to copy short code:", error)
+    }
+  }
+
   return (
     <section aria-labelledby="links-table-heading" className="mx-auto w-full max-w-5xl">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -61,7 +77,7 @@ export default function LinksTable() {
       <div className="relative isolate">
         <div
           aria-hidden="true"
-          className="absolute inset-0 translate-x-[7px] translate-y-[7px] rounded-2xl bg-orange-500"
+          className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-orange-500"
         />
         <div className="relative overflow-hidden rounded-2xl border-2 border-black bg-white">
           <div className="overflow-x-auto">
@@ -109,12 +125,27 @@ export default function LinksTable() {
                       </a>
                     </td>
                     <td className="whitespace-nowrap px-5 py-4">
-                      <code
-                        title={link.short_code}
-                        className="inline-block max-w-40 truncate align-bottom rounded-md border-2 border-black bg-white px-2 py-1 font-mono text-sm font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                      >
-                        {link.short_code}
-                      </code>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => copyShortCode(link.short_code)}
+                          aria-label={`Copy short code ${link.short_code}`}
+                          title={copiedCode === link.short_code ? "Copied!" : "Copy short code"}
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 border-black bg-white text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-orange-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                        >
+                          <FontAwesomeIcon
+                            aria-hidden="true"
+                            icon={copiedCode === link.short_code ? faCheck : faCopy}
+                            className="h-3.5 w-3.5"
+                          />
+                        </button>
+                        <code
+                          title={link.short_code}
+                          className="inline-block w-[14ch] truncate align-bottom rounded-md border-2 border-black bg-white px-2 py-1 font-mono text-sm font-bold text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                        >
+                          {link.short_code}
+                        </code>
+                      </div>
                     </td>
                     <td className="whitespace-nowrap px-5 py-4 text-sm font-medium text-gray-700">
                       {formatExpiration(link.expires_at)}
