@@ -34,6 +34,8 @@ export default function LinksTable() {
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
+  const [updatingCode, setUpdatingCode] = useState<string | null>(null)
+const [updateError, setUpdateError] = useState<string | null>(null)
 
   useEffect(() => {
     let isMounted = true
@@ -79,6 +81,43 @@ export default function LinksTable() {
     }
   }
 
+  async function toggleLinkStatus(link: LinkRecord) {
+  if (updatingCode) return
+
+  const newStatus = !link.is_active
+  setUpdatingCode(link.short_code)
+  setUpdateError(null)
+
+  setLinks((currentLinks) =>
+    currentLinks.map((item) =>
+      item.short_code === link.short_code
+        ? { ...item, is_active: newStatus }
+        : item,
+    ),
+  )
+
+  try {
+    const { error } = await supabase
+      .from("links")
+      .update({ is_active: newStatus })
+      .eq("short_code", link.short_code)
+
+    if (error) throw error
+  } catch (error) {
+    console.error("Failed to update link status:", error)
+
+    setLinks((currentLinks) =>
+      currentLinks.map((item) =>
+        item.short_code === link.short_code
+          ? { ...item, is_active: link.is_active }
+          : item,
+      ),
+    )
+    setUpdateError("Could not update the link status. Please try again.")
+  } finally {
+    setUpdatingCode(null)
+  }
+}
   return (
     <section aria-labelledby="links-table-heading" className="mx-auto w-full max-w-5xl">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -102,6 +141,13 @@ export default function LinksTable() {
         >
           <FontAwesomeIcon aria-hidden="true" icon={faTriangleExclamation} className="mt-0.5" />
           <span>Unable to load links. {errorMessage}</span>
+        </div>
+      )}
+    
+          {updateError && (
+        <div role="alert" className="mb-5 rounded-xl border-2 border-red-700 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          <FontAwesomeIcon aria-hidden="true" icon={faTriangleExclamation} className="mr-2" />
+          {updateError}
         </div>
       )}
 
@@ -218,22 +264,25 @@ export default function LinksTable() {
                       </td>
                       <td className="whitespace-nowrap px-5 py-4 text-sm font-medium text-gray-700">
                         {formatExpiration(link.expires_at)}
-                      </td>
-                      <td className="whitespace-nowrap px-5 py-4">
-                        <span
-                          className={`inline-flex items-center rounded-full border-2 border-black px-3 py-1 text-xs font-extrabold uppercase tracking-wide shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
+                                                    <td className="whitespace-nowrap px-5 py-4">
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked={link.is_active}
+                          aria-label={`${link.is_active ? "Deactivate" : "Activate"} ${link.short_code}`}
+                          disabled={updatingCode === link.short_code}
+                          onClick={() => toggleLinkStatus(link)}
+                          className={`inline-flex items-center gap-2 rounded-full border-2 border-black px-3 py-1 text-xs font-extrabold uppercase tracking-wide shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:cursor-wait disabled:opacity-60 ${
                             link.is_active ? "bg-green-200 text-black" : "bg-gray-200 text-gray-700"
                           }`}
                         >
-                          <span
-                            aria-hidden="true"
-                            className={`mr-2 h-2 w-2 rounded-full border border-black ${
-                              link.is_active ? "bg-green-600" : "bg-gray-500"
-                            }`}
-                          />
                           {link.is_active ? "Active" : "Inactive"}
-                        </span>
+                        </button>
                       </td>
+              
+                       </td>
+
+                  
                     </tr>
                   ))
                 )}
