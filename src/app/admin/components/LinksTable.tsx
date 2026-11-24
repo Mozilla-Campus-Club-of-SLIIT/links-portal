@@ -264,7 +264,9 @@ const [updateError, setUpdateError] = useState<string | null>(null)
                       </td>
                       <td className="whitespace-nowrap px-5 py-4 text-sm font-medium text-gray-700">
                         {formatExpiration(link.expires_at)}
-                                                    <td className="whitespace-nowrap px-5 py-4">
+                      </td>
+
+                       <td className="whitespace-nowrap px-5 py-4">
                         <button
                           type="button"
                           role="switch"
@@ -280,7 +282,7 @@ const [updateError, setUpdateError] = useState<string | null>(null)
                         </button>
                       </td>
               
-                       </td>
+                       
 
                   
                     </tr>
