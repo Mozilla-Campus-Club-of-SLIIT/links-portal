@@ -272,7 +272,7 @@ const [updateError, setUpdateError] = useState<string | null>(null)
                           role="switch"
                           aria-checked={link.is_active}
                           aria-label={`${link.is_active ? "Deactivate" : "Activate"} ${link.short_code}`}
-                          disabled={updatingCode === link.short_code}
+                          disabled={updatingCode !== null}
                           onClick={() => toggleLinkStatus(link)}
                           className={`inline-flex items-center gap-2 rounded-full border-2 border-black px-3 py-1 text-xs font-extrabold uppercase tracking-wide shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:cursor-wait disabled:opacity-60 ${
                             link.is_active ? "bg-green-200 text-black" : "bg-gray-200 text-gray-700"
